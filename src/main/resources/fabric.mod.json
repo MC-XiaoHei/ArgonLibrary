@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "argonlibrary",
+  "version": "${version}",
+  "name": "ArgonLibrary",
+  "description": "",
+  "authors": [
+    "MC_XiaoHei"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/argonlibrary/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "client": [
+      "xor7studio.argonlibrary.client.ArgonLibrary"
+    ],
+    "main": [
+      "xor7studio.argonlibrary.ArgonLibrary"
+    ]
+  },
+  "mixins": [
+    "argonlibrary.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": "1.18.2"
+  }
+}
