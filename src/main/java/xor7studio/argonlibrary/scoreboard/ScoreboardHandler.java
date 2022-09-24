@@ -45,37 +45,28 @@ public final class ScoreboardHandler {
             return ActionResult.PASS;
         });
     }
-    private void update() {
+    public void update(List<ServerPlayerEntity> entities) {
         // 保存老计分板内部名称
         String storeName = currentDisplayName;
-
         // 重新设置计分板内部名称
         currentDisplayName = UUID.randomUUID().toString().substring(0, 6);
-
         //更新计分板
         lastTitle = currentTitle;
         lastContent.clear();
         lastContent.addAll(currentContent);
-
-        List<ServerPlayerEntity> list = ArgonLibrary.server.getPlayerManager().getPlayerList();
-        for (int i = 0; i < list.size(); i++) {
-            sendUpdate(list.get(i), storeName);
-        }
+        for(ServerPlayerEntity entity:entities) sendUpdate(entity,storeName);
     }
-
     private void sendUpdate(ServerPlayerEntity entity, String oldName) {
         try {
             // 创建计分板
             IScoreboardObjectiveUpdateS2CPacket packet =
                     (IScoreboardObjectiveUpdateS2CPacket) (unsafe.allocateInstance(ScoreboardObjectiveUpdateS2CPacket.class));
-
             packet.hg_setName(currentDisplayName);
             packet.hg_setDisplayName(new LiteralText(lastTitle));
             packet.hg_setType(ScoreboardCriterion.RenderType.INTEGER);
             packet.hg_setMode(0);
             packet.hg_setHgGamePacket(true);
             entity.networkHandler.sendPacket((Packet<?>) packet);
-
             // 推送计分板
             for (int i = lastContent.size() - 1; i >= 0; i--) {
                 IScoreboardPlayerUpdateS2CPacket packet2 =
@@ -87,7 +78,6 @@ public final class ScoreboardHandler {
                 packet2.hg_setHgGamePacket(true);
                 entity.networkHandler.sendPacket((Packet<?>) packet2);
             }
-
             //移除老的计分板
             if (oldName != null) {
                 IScoreboardObjectiveUpdateS2CPacket packet4 =
@@ -99,7 +89,6 @@ public final class ScoreboardHandler {
                 packet4.hg_setHgGamePacket(true);
                 entity.networkHandler.sendPacket((Packet<?>) packet4);
             }
-
             // 设置显示位置
             IScoreboardDisplayS2CPacket packet1 =
                     (IScoreboardDisplayS2CPacket) unsafe.allocateInstance(ScoreboardDisplayS2CPacket.class);
@@ -114,25 +103,4 @@ public final class ScoreboardHandler {
     public void init(PlayerEntity entity){
         sendUpdate((ServerPlayerEntity) entity, null);
     }
-//    public void init() {
-//        HadesGameScheduleManager.INSTANCE.timer.add(this);
-//
-//        PlayerJoinEvent.INSTANCE.register((playerEntity -> {
-//            HadesGameScheduleManager.INSTANCE.runTask.add(new AbstractTick() {
-//                @Override
-//                protected void tick() {
-//                    sendUpdate(playerEntity, null);
-//                }
-//            });
-//        }));
-//
-//        PacketSendEvent.INSTANCE.register((playerEntity, packet) -> {
-//            if (packet instanceof IScoreboardS2CPacket) {
-//                if (!((IScoreboardS2CPacket) packet).hg_isHgGamePacket()) {
-//                    return ActionResult.FAIL;
-//                }
-//            }
-//            return ActionResult.PASS;
-//        });
-//    }
 }
