@@ -40,7 +40,7 @@ public class ArgonLibrary implements ModInitializer {
             return registry.get(
                     new Identifier(name.split(":")[0], name.split(":")[1]));
     }
-    private boolean move(World world, BlockPos pos, Direction dir, boolean retract, boolean sticky, DirectionProperty facing) {
+    public static boolean move(World world, BlockPos pos, Direction dir, boolean retract, boolean sticky, DirectionProperty facing) {
         BlockPos blockPos = pos.offset(dir);
         if (!retract && world.getBlockState(blockPos).isOf(Blocks.PISTON_HEAD)) {
             world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 20);
@@ -145,7 +145,7 @@ public class ArgonLibrary implements ModInitializer {
     }
     @Override
     public void onInitialize() {
-        Xor7IO.modId="UtilityLibrary";
+        Xor7IO.modId="Argon Library";
         openMenuFlag =new HashSet<>();
         Command.initCommand();
         Xor7IO.println("UtilityLibrary加载完成.");
