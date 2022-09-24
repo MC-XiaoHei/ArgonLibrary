@@ -11,7 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import sun.misc.Unsafe;
-import xor7studio.argonlibrary.ArgonLibrary;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -20,12 +19,11 @@ import java.util.UUID;
 
 public final class ScoreboardHandler {
     public static ScoreboardHandler INSTANCE = new ScoreboardHandler();
-    public final List<String> currentContent = new ArrayList<>(20);
-    public List<String> lastContent = new ArrayList<>(20);
+    public final List<String> currentContent = new ArrayList<>(1);
+    public List<String> lastContent = new ArrayList<>(1);
     public String currentTitle = "";
     private String lastTitle = "";
     private String currentDisplayName = "HGScoreboard";
-
     private Unsafe unsafe;
 
     private ScoreboardHandler() {

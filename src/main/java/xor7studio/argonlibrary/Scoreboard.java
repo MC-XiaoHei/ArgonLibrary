@@ -7,15 +7,16 @@ import xor7studio.argonlibrary.scoreboard.ScoreboardHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerScoreboard {
+public class Scoreboard {
     private List<String> objectives;
     private Integer size;
-    private String name;
+    public String name;
     private ScoreboardHandler scoreboardHandler;
     private List<ServerPlayerEntity> players;
-    public PlayerScoreboard(String name){init(0,name);}
-    public PlayerScoreboard(int size, String name){init(size,name);}
+    public Scoreboard(String name){init(0,name);}
+    public Scoreboard(int size, String name){init(size,name);}
     private void init(int size,String name){
+        this.size=size;
         objectives = new ArrayList<>();
         for(int i=0;i<size;i++)objectives.add("");
         scoreboardHandler=ScoreboardHandler.INSTANCE;
@@ -37,6 +38,7 @@ public class PlayerScoreboard {
         update();
     }
     public void update(){
+        scoreboardHandler.currentTitle=name;
         scoreboardHandler.update(players);
     }
 }
