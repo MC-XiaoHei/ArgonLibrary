@@ -1,3 +1,8 @@
 本项目的Scoreboard部分(xor7studio.argonlibrary.scoreboard && xor7studio.argonlibrary.mixin.scoreboard)并非原创
 原作者:CaaMoe
 原项目地址:https://github.com/CaaMoe/HadesGameV2
+
+调用本项目中的Argon类时,您已经同意:
+    当您调用Argon类中的ignoreEula或setTrueWhenCreateEula方法,
+    或通过其他手段修改Argon类中的ignoreEulaFlag或setTrueWhenCreateEulaFlag变量为True时,
+    您必须向用户说明:这意味着用户同意了Minecraft Eula协议(https://account.mojang.com/documents/minecraft_eula)
