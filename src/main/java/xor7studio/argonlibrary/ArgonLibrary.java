@@ -37,12 +37,6 @@ public class ArgonLibrary implements ModInitializer {
     public static MinecraftServer server;
     public static MinecraftClient client;
     public static Set<PlayerEntity> openMenuFlag;
-    private static boolean ignoreEulaFlag=false;
-    private static boolean autoCreateEulaFlag=false;
-    public static void ignoreEula(){ignoreEulaFlag=true;}
-    public static void autoCreateEula(){autoCreateEulaFlag=true;}
-    public static boolean ifIgnoreEula(){return ignoreEulaFlag;}
-    public static boolean ifAutoCreateEula(){return autoCreateEulaFlag;}
     public static Object getFromRegistry(@NotNull String name, Registry<?> registry){
         if (!name.contains(":"))
             return registry.get(
@@ -57,5 +51,16 @@ public class ArgonLibrary implements ModInitializer {
         openMenuFlag =new HashSet<>();
         Command.initCommand();
         Xor7IO.println("Argon Library加载完成.");
+    }
+    public static class EulaAPI{
+        // 当您调用本类中的ignoreEula或setTrueWhenCreateEula方法
+        // 或通过其他手段修改本类中的ignoreEulaFlag或setTrueWhenCreateEulaFlag变量为True时
+        // 您必须向用户说明:这意味着用户同意了Minecraft Eula协议(https://account.mojang.com/documents/minecraft_eula)
+        private static boolean ignoreEulaFlag=false;
+        private static boolean setTrueWhenCreateEulaFlag=false;
+        public static void ignoreEula(){ignoreEulaFlag=true;}
+        public static void setTrueWhenCreateEula(){setTrueWhenCreateEulaFlag=true;}
+        public static boolean ifIgnoreEula(){return ignoreEulaFlag;}
+        public static boolean ifSetTrueWhenCreateEula(){return setTrueWhenCreateEulaFlag;}
     }
 }
