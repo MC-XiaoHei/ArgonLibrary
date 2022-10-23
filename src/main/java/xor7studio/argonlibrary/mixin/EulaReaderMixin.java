@@ -21,9 +21,10 @@ import java.util.Properties;
 public class EulaReaderMixin {
     @Shadow
     @Final
+    private
     Path eulaFile;
     @Inject(method = "Lnet/minecraft/server/dedicated/EulaReader;checkEulaAgreement()Z",
-            at = @At("RETURN"))
+            at = @At("RETURN"), cancellable = true)
     private void onCheckEula(CallbackInfoReturnable<Boolean> cir){
         if(ArgonLibrary.EulaAPI.ifIgnoreEula()) cir.setReturnValue(true);
     }

@@ -7,7 +7,7 @@ import xor7studio.argonlibrary.ArgonLibrary;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    public void getServer(){
+    public void getClient(){
         ArgonLibrary.client = (MinecraftClient) (Object) this;
     }
 }
