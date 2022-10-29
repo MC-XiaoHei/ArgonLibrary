@@ -8,10 +8,7 @@
     "MinecraftClientMixin",
     "MinecraftServerMixin",
     "ScreenHandlerMixin",
-    "ServerPlayerEntityMixin",
-    "scoreboard.MixinScoreboardDisplayS2CPacket",
-    "scoreboard.MixinScoreboardObjectiveUpdateS2CPacket",
-    "scoreboard.MixinScoreboardPlayerUpdateS2CPacket"
+    "ServerPlayerEntityMixin"
   ],
   "client": [
   ],
