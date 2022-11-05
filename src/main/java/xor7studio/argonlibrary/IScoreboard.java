@@ -1,30 +1,19 @@
 package xor7studio.argonlibrary;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public interface IScoreboard {
-  
-  public void update();
-  
-  public void update(PlayerEntity player);
-  
-  public void setAutoUpdate(boolean is);
-  
-  public void addAutoSendPlayer(PlayerEntity player);
-
-  public void removeAutoSendPlayer(PlayerEntity player);
-  
-  public void clearAutoSendPlayer();
-  
-  public void setLine(int line, String name);
-  
-  public void setMaxLine(int max);
-  
-  public String getLine(int line);
-  
-  public int getMaxLine();
-  
-  public String getTtile();
-  
-  public void setTitle(String title);
+  void update();
+  void update(ServerPlayerEntity player);
+  void setAutoUpdate(boolean is);
+  void addAutoSendPlayer(ServerPlayerEntity player);
+  void removeAutoSendPlayer(ServerPlayerEntity player);
+  void clearAutoSendPlayer();
+  void setLine(int line, String name);
+  void setMaxLine(int max);
+  String getLine(int line);
+  int getMaxLine();
+  String getTitle();
+  void setTitle(String title);
+  String getName();
 }
