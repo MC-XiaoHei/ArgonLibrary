@@ -8,6 +8,7 @@ import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ServerScoreboard;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import xor7studio.util.Xor7IO;
 
 import java.util.ArrayList;
@@ -131,8 +132,8 @@ public class SingleScoreboard implements IScoreboard {
         ));
     }
     
-    private void getRealLine(int line) {
-        return "§a§r".repeat(line) + Objects.requireNonNullElse(lines[line, ""]);
+    private @NotNull String getRealLine(int line) {
+        return "§a§r".repeat(line) + Objects.requireNonNullElse(lines[line], "");
     }
 
     @Override

@@ -27,14 +27,14 @@ import static xor7studio.argonlibrary.ArgonLibrary.server;
 
 public class Command {
     public static void initCommand(){
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {dispatcher
-            .register(literal("run")
-            .executes(context -> {
-                SingleScoreboard singleScoreboard=new SingleScoreboard(context.getSource().getPlayer(),"aaa");
-                singleScoreboard.setLine(5,"aaa");
-                Xor7IO.println("command run.");
-                return 1;
-            }));
-        });
+//        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {dispatcher
+//            .register(literal("run")
+//            .executes(context -> {
+//                SingleScoreboard singleScoreboard=new SingleScoreboard(context.getSource().getPlayer(),"aaa");
+//                singleScoreboard.setLine(5,"aaa");
+//                Xor7IO.println("command run.");
+//                return 1;
+//            }));
+//        });
     }
 }
