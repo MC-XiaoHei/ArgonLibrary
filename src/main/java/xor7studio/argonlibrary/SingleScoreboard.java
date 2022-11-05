@@ -71,14 +71,10 @@ public class SingleScoreboard implements IScoreboard {
                 player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
                         ServerScoreboard.UpdateMode.CHANGE,
                         name,
-                        Objects.requireNonNullElse(lines[i], ""),
+                        getRealLine(i),
                         i
                 ));
             }
-            player.networkHandler.sendPacket(new ScoreboardDisplayS2CPacket(
-                    1,
-                    new ScoreboardObjective(null, name, null, Text.of(title), null)
-            ));
             isCreate = true;
         } else {
             if (needUpdateTitle) {
@@ -101,32 +97,30 @@ public class SingleScoreboard implements IScoreboard {
                     player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
                             ServerScoreboard.UpdateMode.CHANGE,
                             name,
-                            Objects.requireNonNullElse(lines[i], ""),
+                            getRealLine(i),
                             i
                     ));
                 }
                 needUpdateLine = false;
             }
-            player.networkHandler.sendPacket(new ScoreboardDisplayS2CPacket(
+        }
+                    player.networkHandler.sendPacket(new ScoreboardDisplayS2CPacket(
                     1,
                     new ScoreboardObjective(null, name, null, Text.of(title), null)
             ));
-        }
     }
 
     private void updateLine(String old, int line) {
-        if (old != null) {
             player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
                     ServerScoreboard.UpdateMode.REMOVE,
                     name,
                     old,
                     line
             ));
-        }
         player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
                 ServerScoreboard.UpdateMode.CHANGE,
                 name,
-                Objects.requireNonNullElse(lines[line],"§r".repeat(line)),
+                getRealLine(line),
                 line
         ));
     }
@@ -136,6 +130,10 @@ public class SingleScoreboard implements IScoreboard {
                 ScoreboardObjectiveUpdateS2CPacket.UPDATE_MODE
         ));
     }
+    
+    private void getRealLine(int line) {
+        return "§a§r".repeat(line) + Objects.requireNonNullElse(lines[line, ""]);
+    }
 
     @Override
     public void setAutoUpdate(boolean is) {
@@ -144,7 +142,7 @@ public class SingleScoreboard implements IScoreboard {
 
     @Override
     public void setLine(int line, String newLine) {
-        String old = lines[line];
+        String old = getRealLine(line);
         lines[line] = newLine;
         if (autoUpdate) {
             updateLine(old, line);
