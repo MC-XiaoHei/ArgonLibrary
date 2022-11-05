@@ -29,16 +29,9 @@ public class Command {
     public static void initCommand(){
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {dispatcher
             .register(literal("run")
-            .requires(source -> source.hasPermissionLevel(4))
             .executes(context -> {
-//                FallingBlockX fallingBlockX;
-//                FabricBlockSettings settings;
-//                settings = FabricBlockSettings.of(Material.GLASS, MapColor.BLACK);
-//                fallingBlockX=new FallingBlockX(settings);
-                SandBlock sandBlock=new SandBlock(1,FabricBlockSettings.of(Material.GLASS, MapColor.BLACK));
-                FallingBlockEntity.spawnFromBlock(
-                        server.getOverworld(),context.getSource().getPlayer().getBlockPos(),
-                        sandBlock.getDefaultState());
+                SingleScoreboard singleScoreboard=new SingleScoreboard(context.getSource().getPlayer(),"aaa");
+                singleScoreboard.setLine(5,"aaa");
                 Xor7IO.println("command run.");
                 return 1;
             }));

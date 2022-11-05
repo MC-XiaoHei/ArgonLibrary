@@ -37,6 +37,7 @@ public class ArgonLibrary implements ModInitializer {
     public static MinecraftServer server;
     public static MinecraftClient client;
     public static Set<PlayerEntity> openMenuFlag;
+    public static String MCColor="§";
     public static Object getFromRegistry(@NotNull String name, Registry<?> registry){
         if (!name.contains(":"))
             return registry.get(

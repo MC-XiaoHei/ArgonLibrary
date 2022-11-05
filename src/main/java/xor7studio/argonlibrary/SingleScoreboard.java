@@ -8,6 +8,7 @@ import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ServerScoreboard;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import xor7studio.util.Xor7IO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,6 @@ public class SingleScoreboard implements IScoreboard {
         this.lines = new String[100];
         this.name = UUID.randomUUID().toString().substring(0, 5);
         this.autoUpdate = true;
-
         this.title = title;
         this.maxLine = maxLine;
         this.isCreate = false;
@@ -77,7 +77,7 @@ public class SingleScoreboard implements IScoreboard {
             }
             player.networkHandler.sendPacket(new ScoreboardDisplayS2CPacket(
                     1,
-                    new ScoreboardObjective(null, name, null, null, null)
+                    new ScoreboardObjective(null, name, null, Text.of(title), null)
             ));
             isCreate = true;
         } else {
@@ -109,7 +109,7 @@ public class SingleScoreboard implements IScoreboard {
             }
             player.networkHandler.sendPacket(new ScoreboardDisplayS2CPacket(
                     1,
-                    new ScoreboardObjective(null, name, null, null, null)
+                    new ScoreboardObjective(null, name, null, Text.of(title), null)
             ));
         }
     }
@@ -117,7 +117,7 @@ public class SingleScoreboard implements IScoreboard {
     private void updateLine(String old, int line) {
         if (old != null) {
             player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
-                    ServerScoreboard.UpdateMode.CHANGE,
+                    ServerScoreboard.UpdateMode.REMOVE,
                     name,
                     old,
                     line
@@ -126,11 +126,10 @@ public class SingleScoreboard implements IScoreboard {
         player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
                 ServerScoreboard.UpdateMode.CHANGE,
                 name,
-                Objects.requireNonNullElse(lines[line], ""),
+                Objects.requireNonNullElse(lines[line],"§r".repeat(line)),
                 line
         ));
     }
-
     private void updateTitle() {
         player.networkHandler.sendPacket(new ScoreboardObjectiveUpdateS2CPacket(
                 new ScoreboardObjective(null, name, null, Text.of(title), ScoreboardCriterion.RenderType.INTEGER),
