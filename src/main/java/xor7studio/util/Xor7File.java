@@ -2,7 +2,6 @@ package xor7studio.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 
 public class Xor7File {
     public File file;
