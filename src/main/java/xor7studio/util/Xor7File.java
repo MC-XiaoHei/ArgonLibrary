@@ -2,6 +2,7 @@ package xor7studio.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class Xor7File {
     public File file;
@@ -9,7 +10,7 @@ public class Xor7File {
         file=new File(path+File.separator+filename);
         if(!file.isFile()) {
             try {
-                if(!file.createNewFile()){
+                if(!file.getParentFile().mkdirs() || !file.createNewFile() ){
                     throw new RuntimeException("无法创建文件:"+filename);
                 }
             } catch (IOException e) {
