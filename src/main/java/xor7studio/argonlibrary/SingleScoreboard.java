@@ -112,18 +112,19 @@ public class SingleScoreboard implements IScoreboard {
     }
 
     private void updateLine(String old, int line) {
-            player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
-                    ServerScoreboard.UpdateMode.REMOVE,
-                    name,
-                    old,
-                    line
-            ));
+        player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
+            ServerScoreboard.UpdateMode.REMOVE,
+            name,
+            old,
+            line
+    ));
         player.networkHandler.sendPacket(new ScoreboardPlayerUpdateS2CPacket(
                 ServerScoreboard.UpdateMode.CHANGE,
                 name,
                 getRealLine(line),
                 line
         ));
+
     }
     private void updateTitle() {
         player.networkHandler.sendPacket(new ScoreboardObjectiveUpdateS2CPacket(

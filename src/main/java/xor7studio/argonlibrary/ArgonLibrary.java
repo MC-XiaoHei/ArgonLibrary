@@ -1,37 +1,19 @@
 package xor7studio.argonlibrary;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PistonExtensionBlock;
-import net.minecraft.block.PistonHeadBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.enums.PistonType;
-import net.minecraft.block.piston.PistonHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.scoreboard.ServerScoreboard;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.State;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import xor7studio.util.Xor7IO;
 
-import java.util.*;
-
-import static net.minecraft.block.Block.dropStacks;
-import static net.minecraft.block.PistonBlock.EXTENDED;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 
 public class ArgonLibrary implements ModInitializer {
     public static MinecraftServer server;
@@ -45,6 +27,12 @@ public class ArgonLibrary implements ModInitializer {
         else
             return registry.get(
                     new Identifier(name.split(":")[0], name.split(":")[1]));
+    }
+    public static ServerPlayerEntity getServerPlayer(String name){
+        return server.getPlayerManager().getPlayer(name);
+    }
+    public static UUID getUUID(String name){
+        return Objects.requireNonNull(server.getPlayerManager().getPlayer(name)).getUuid();
     }
     @Override
     public void onInitialize() {
